@@ -1,0 +1,5 @@
+{
+  "port": 8080,
+  "maxGoals": 9,
+  "interval": 10000
+}
