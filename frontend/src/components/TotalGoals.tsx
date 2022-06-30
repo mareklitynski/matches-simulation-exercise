@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 
-import { useAppSelector } from "./store";
+import { useAppSelector } from "../store";
 
 const TotalGoals: React.FC = () => {
   const total = useAppSelector((state) =>

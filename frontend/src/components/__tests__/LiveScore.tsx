@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 
 import App from "../App";
 
-jest.mock("../matchesApi");
+jest.mock("../../matchesApi");
 
 afterEach(() => {
   jest.runOnlyPendingTimers();

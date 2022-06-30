@@ -3,7 +3,9 @@ import userEvent from "@testing-library/user-event";
 
 import App from "../App";
 
-jest.mock("../matchesApi", () => jest.createMockFromModule("../matchesApi"));
+jest.mock("../../matchesApi", () =>
+  jest.createMockFromModule("../../matchesApi")
+);
 
 it("moves through steps", async () => {
   const user = userEvent.setup();

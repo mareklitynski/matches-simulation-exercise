@@ -5,7 +5,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 
 import Score from "./Score";
-import { useAppSelector } from "./store";
+import { useAppSelector } from "../store";
 
 const Matches: React.FC = () => {
   const matches = useAppSelector(({ matches }) =>

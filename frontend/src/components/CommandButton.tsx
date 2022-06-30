@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 
-import { Steps } from "./stepSlice";
+import { Steps } from "../store/stepSlice";
 
 const CommandButton: React.FC<{ step: Steps; onClick: () => void }> = ({
   step,

@@ -7,11 +7,11 @@ import Box from "@mui/material/Box";
 
 import Matches from "./Matches";
 import CommandButton from "./CommandButton";
-import { useAppSelector } from "./store";
-import { setGames, updateScore, resetScores } from "./matchesSlice";
-import { nextStep, Steps } from "./stepSlice";
+import { useAppSelector } from "../store";
+import { setGames, updateScore, resetScores } from "../store/matchesSlice";
+import { nextStep, Steps } from "../store/stepSlice";
 import TotalGoals from "./TotalGoals";
-import matchesApi, { Message } from "./matchesApi";
+import matchesApi, { Message } from "../matchesApi";
 
 const LiveScore: React.FC = () => {
   const dispatch = useDispatch();
