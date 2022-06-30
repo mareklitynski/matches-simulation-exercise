@@ -1,18 +1,14 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 
-import { useAppSelector } from "./store";
-import { next } from "./stepSlice";
+import { Steps } from "./stepSlice";
 
-const CommandButton: React.FC = () => {
-  const dispatch = useDispatch();
-  const step = useAppSelector((state) => state.step.value);
-
+const CommandButton: React.FC<{ step: Steps; onClick: () => void }> = ({
+  step,
+  onClick,
+}) => {
   const label = ["Start", "Finish", "Restart"][step];
 
-  const handleClick = () => dispatch(next());
-
-  return <button onClick={handleClick}>{label}</button>;
+  return <button onClick={onClick}>{label}</button>;
 };
 
 export default CommandButton;

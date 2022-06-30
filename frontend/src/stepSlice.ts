@@ -1,29 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-enum Steps {
+export enum Steps {
   Start,
   Progress,
   End,
 }
 
-const initialState: { value: Steps } = {
-  value: Steps.Start,
-};
+const initialState = Steps.Start as Steps;
 
 const stepSlice = createSlice({
   name: "step",
   initialState,
   reducers: {
-    next: (state) => {
-      if (state.value === Steps.End) {
-        state.value = Steps.Start;
-      } else {
-        state.value++;
-      }
-    },
+    nextStep: (state) => (state === Steps.End ? Steps.Progress : state + 1),
   },
 });
 
-export const { next } = stepSlice.actions;
+export const { nextStep } = stepSlice.actions;
 
 export default stepSlice;

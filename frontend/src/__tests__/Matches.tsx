@@ -7,11 +7,13 @@ import Matches from "../Matches";
 it("shows matches", () => {
   const store = {
     getState: jest.fn().mockReturnValue({
-      matches: [
-        { id: "1", teamA: "Germany", teamB: "Poland" },
-        { id: "2", teamA: "Brazil", teamB: "Mexico" },
-      ],
-      results: { 1: [1, 2], 2: [3, 4] },
+      matches: {
+        games: [
+          { id: "1", teamA: "Germany", teamB: "Poland" },
+          { id: "2", teamA: "Brazil", teamB: "Mexico" },
+        ],
+        scores: { "1": [1, 2], "2": [3, 4] },
+      },
     }),
     subscribe: jest.fn(),
   } as unknown as Store;
@@ -24,7 +26,7 @@ it("shows matches", () => {
 
   const rows = screen.getAllByRole("row");
   within(rows[0]).getByText("Germany vs Poland");
-  within(rows[0]).getByText("1:2");
+  expect(rows[0]).toHaveTextContent("1:2");
   within(rows[1]).getByText("Brazil vs Mexico");
-  within(rows[1]).getByText("3:4");
+  expect(rows[1]).toHaveTextContent("3:4");
 });

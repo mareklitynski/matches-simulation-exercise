@@ -2,15 +2,11 @@ import React from "react";
 import { Provider } from "react-redux";
 
 import store from "./store";
-import CommandButton from "./CommandButton";
-import Matches from "./Matches";
-import TotalGoals from "./TotalGoals";
+import LiveScore from "./LiveScore";
 
-const App = () => (
+const App: React.FC = () => (
   <Provider store={store}>
-    <CommandButton />
-    <Matches />
-    <TotalGoals />
+    <LiveScore />
   </Provider>
 );
 

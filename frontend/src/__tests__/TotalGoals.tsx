@@ -7,11 +7,13 @@ import TotalGoals from "../TotalGoals";
 it("shows total goals", () => {
   const store = {
     getState: jest.fn().mockReturnValue({
-      matches: [
-        { id: "1", teamA: "Germany", teamB: "Poland" },
-        { id: "2", teamA: "Brazil", teamB: "Mexico" },
-      ],
-      results: { 1: [1, 2], 2: [3, 4] },
+      matches: {
+        games: [
+          { id: "1", teamA: "Germany", teamB: "Poland" },
+          { id: "2", teamA: "Brazil", teamB: "Mexico" },
+        ],
+        scores: { 1: [1, 2], 2: [3, 4] },
+      },
     }),
     subscribe: jest.fn(),
   } as unknown as Store;

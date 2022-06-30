@@ -1,20 +1,22 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import App from "../App";
 
-it("moves through steps", () => {
+jest.mock("../matchesApi", () => jest.createMockFromModule("../matchesApi"));
+
+it("moves through steps", async () => {
+  const user = userEvent.setup();
   render(<App />);
 
-  const button = screen.getByRole("button");
-  expect(button).toHaveTextContent("Start");
+  const button = screen.getByRole("button", { name: "Start" });
 
-  userEvent.click(button);
-  expect(button).toHaveTextContent("Finish");
+  await user.click(button);
+  screen.getByRole("button", { name: "Finish" });
 
-  userEvent.click(button);
-  expect(button).toHaveTextContent("Restart");
+  await act(() => user.click(button));
+  screen.getByRole("button", { name: "Restart" });
 
-  userEvent.click(button);
-  expect(button).toHaveTextContent("Start");
+  await user.click(button);
+  screen.getByRole("button", { name: "Finish" });
 });

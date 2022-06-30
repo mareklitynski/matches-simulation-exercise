@@ -1,12 +1,13 @@
 import React from "react";
 
+import Score from "./Score";
 import { useAppSelector } from "./store";
 
 const Matches: React.FC = () => {
-  const matches = useAppSelector((state) =>
-    state.matches.map(({ id, ...teams }) => ({
+  const matches = useAppSelector(({ matches }) =>
+    matches.games.map(({ id, ...teams }) => ({
       id,
-      result: state.results[id],
+      result: matches.scores[id],
       ...teams,
     }))
   );
@@ -17,7 +18,9 @@ const Matches: React.FC = () => {
         {matches.map(({ id, teamA, teamB, result }) => (
           <tr key={id}>
             <td>{`${teamA} vs ${teamB}`}</td>
-            <td>{result.join(":")}</td>
+            <td>
+              <Score>{result}</Score>
+            </td>
           </tr>
         ))}
       </tbody>
