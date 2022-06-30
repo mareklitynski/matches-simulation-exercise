@@ -8,44 +8,40 @@ const scores: ScoreData[] = [
   { id: "2", finish: true, result: [1, 1] },
 ];
 
-const matchesApi = () => {
-  let callback: (message: Message) => void;
+class MatchesApi {
+  callback: ((message: Message) => void) | undefined;
 
-  return {
-    init: jest.fn(),
-    subscribe(subscriber: (message: Message) => void) {
-      callback = subscriber;
-    },
-    send(message: string) {
-      if (message === "matches") {
-        process.nextTick(() =>
-          callback({
-            type: "matches",
-            data: [
-              { id: "1", teamA: "Test1", teamB: "Test2" },
-              { id: "2", teamA: "Other1", teamB: "Other2" },
-            ],
-          })
-        );
-      }
-      if (message === "start") {
-        const scoresIterator = scores.entries();
+  connect = jest.fn();
+  subscribe(subscriber: (message: Message) => void) {
+    this.callback = subscriber;
+  }
+  requestMatches() {
+    process.nextTick(() =>
+      this.callback?.({
+        type: "matches",
+        data: [
+          { id: "1", teamA: "Test1", teamB: "Test2" },
+          { id: "2", teamA: "Other1", teamB: "Other2" },
+        ],
+      })
+    );
+  }
+  requestStart() {
+    const scoresIterator = scores.entries();
 
-        const nextMessage = () =>
-          setTimeout(() => {
-            const nextScore = scoresIterator.next();
+    const nextMessage = () =>
+      setTimeout(() => {
+        const nextScore = scoresIterator.next();
 
-            if (!nextScore.done) {
-              const [, data] = nextScore.value;
-              callback({ type: "scores", data });
-              nextMessage();
-            }
-          });
+        if (!nextScore.done) {
+          const [, data] = nextScore.value;
+          this.callback?.({ type: "scores", data });
+          nextMessage();
+        }
+      });
 
-        nextMessage();
-      }
-    },
-  };
-};
+    nextMessage();
+  }
+}
 
-export default matchesApi();
+export default new MatchesApi();

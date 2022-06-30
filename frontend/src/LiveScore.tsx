@@ -31,18 +31,18 @@ const LiveScore: React.FC = () => {
   );
 
   useEffect(() => {
-    matchesApi.init();
-    matchesApi.send("matches");
+    matchesApi.connect();
+    matchesApi.requestMatches();
 
     return matchesApi.subscribe(handleMessage);
   }, [handleMessage]);
 
   const handleClick = () => {
     if (step === Steps.Progress) {
-      matchesApi.send("stop");
+      matchesApi.requestStop();
     } else {
       dispatch(resetScores());
-      matchesApi.send("start");
+      matchesApi.requestStart();
     }
     dispatch(nextStep());
   };

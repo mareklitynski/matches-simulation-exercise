@@ -5,35 +5,46 @@ export type Message =
     }
   | { type: "matches"; data: { id: string; teamA: string; teamB: string }[] };
 
-const matchesApi = () => {
-  let webSocket: WebSocket;
-  let waitUntilOpen: Promise<unknown>;
+class MatchesApi {
+  private webSocket: WebSocket | undefined;
+  private untilOpen: Promise<unknown> | undefined;
 
-  return {
-    init() {
-      if (webSocket) {
-        webSocket.close();
-      }
+  private async send(message: string) {
+    await this.untilOpen;
+    this.webSocket?.send(message);
+  }
 
-      webSocket = new WebSocket(process.env.REACT_APP_API as string);
+  connect() {
+    if (this.webSocket) {
+      this.webSocket.close();
+      this.untilOpen = undefined;
+    }
+    this.webSocket = new WebSocket(process.env.REACT_APP_API as string);
+    this.untilOpen = new Promise((resolve) =>
+      this.webSocket?.addEventListener("open", resolve)
+    );
+  }
 
-      waitUntilOpen = new Promise((resolve) =>
-        webSocket.addEventListener("open", resolve)
-      );
-    },
-    async send(message: string) {
-      await waitUntilOpen;
-      webSocket.send(message);
-    },
-    subscribe(callback: (message: Message) => void) {
-      const handleMessage = ({ data }: { data: string }) =>
-        callback(JSON.parse(data));
+  requestMatches() {
+    this.send("matches");
+  }
 
-      webSocket.addEventListener("message", handleMessage);
+  requestStart() {
+    this.send("start");
+  }
 
-      return () => webSocket.removeEventListener("message", handleMessage);
-    },
-  };
-};
+  requestStop() {
+    this.send("stop");
+  }
 
-export default matchesApi();
+  subscribe(callback: (message: Message) => void) {
+    const handleMessage = ({ data }: { data: string }) =>
+      callback(JSON.parse(data));
+
+    this.webSocket?.addEventListener("message", handleMessage);
+
+    return () => this.webSocket?.removeEventListener("message", handleMessage);
+  }
+}
+
+export default new MatchesApi();
