@@ -36,9 +36,10 @@ class MatchesApi {
         if (!nextScore.done) {
           const [, data] = nextScore.value;
           this.callback?.({ type: "scores", data });
+
           nextMessage();
         }
-      });
+      }, 100);
 
     nextMessage();
   }

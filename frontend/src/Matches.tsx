@@ -1,4 +1,8 @@
 import React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
 
 import Score from "./Score";
 import { useAppSelector } from "./store";
@@ -13,18 +17,20 @@ const Matches: React.FC = () => {
   );
 
   return (
-    <table>
-      <tbody>
+    <Table>
+      <TableBody>
         {matches.map(({ id, teamA, teamB, result }) => (
-          <tr key={id}>
-            <td>{`${teamA} vs ${teamB}`}</td>
-            <td>
+          <TableRow key={id}>
+            <TableCell
+              sx={{ paddingLeft: 0, fontSize: 16 }}
+            >{`${teamA} vs ${teamB}`}</TableCell>
+            <TableCell sx={{ paddingRight: 0, fontSize: 16 }}>
               <Score>{result}</Score>
-            </td>
-          </tr>
+            </TableCell>
+          </TableRow>
         ))}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 };
 

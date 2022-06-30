@@ -1,3 +1,5 @@
+import Box from "@mui/material/Box";
+
 import { useAppSelector } from "./store";
 
 const TotalGoals: React.FC = () => {
@@ -7,7 +9,11 @@ const TotalGoals: React.FC = () => {
       .reduce((sum, score) => sum + score, 0)
   );
 
-  return <div>Total goals: {total}</div>;
+  return (
+    <Box sx={{ textAlign: "right", marginTop: 3, fontSize: 14 }}>
+      Total goals: {total}
+    </Box>
+  );
 };
 
 export default TotalGoals;

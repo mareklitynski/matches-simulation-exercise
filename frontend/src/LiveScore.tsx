@@ -1,5 +1,9 @@
 import React, { useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Box from "@mui/material/Box";
 
 import Matches from "./Matches";
 import CommandButton from "./CommandButton";
@@ -48,11 +52,22 @@ const LiveScore: React.FC = () => {
   };
 
   return (
-    <>
-      <CommandButton step={step} onClick={handleClick} />
-      <Matches />
-      <TotalGoals />
-    </>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+    >
+      <Card variant="outlined">
+        <CardActions style={{ justifyContent: "center" }}>
+          <CommandButton step={step} onClick={handleClick} />
+        </CardActions>
+        <CardContent sx={{ paddingX: 4, paddingY: 0 }}>
+          <Matches />
+          <TotalGoals />
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 
