@@ -7,7 +7,7 @@ describe("the simulation", () => {
   it("runs the simulation", () => {
     cy.visit("http://localhost:3000");
     cy.contains("Start").click().contains("Finish");
-    cy.wrap(Array.from({ length: 9 })).each((result) => {
+    cy.wrap(Array.from({ length: 10 })).each((_, result) => {
       cy.get(".goals").should((els) => {
         expect(sumOfVals(els)).to.eq(result);
       });
@@ -15,7 +15,7 @@ describe("the simulation", () => {
     cy.contains("Restart");
   });
 
-  it("can restart the simulation", () => {
+  it("restarts the simulation", () => {
     cy.visit("http://localhost:3000");
     cy.contains("Start").click();
     cy.get(".goals").should((els) => {
