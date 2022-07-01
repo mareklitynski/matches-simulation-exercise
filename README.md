@@ -1,6 +1,6 @@
 # Matches simulation
 
-This project was made as exercise.
+This project was made as an exercise.
 
 ## Installation
 

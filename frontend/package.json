@@ -25,6 +25,7 @@
     "start": "REACT_APP_API='ws://localhost:8080' react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:e2e": "cypress run",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
