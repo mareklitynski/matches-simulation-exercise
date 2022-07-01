@@ -33,6 +33,7 @@ I used:
 - Typescript
 - React
 - Redux with redux toolkit and thunks
+- Material UI
 - Websockets ('ws' node server)
 
 Because of time constraints, I haven't implemented everything I wanted to. Especially I would add:
@@ -42,3 +43,4 @@ Because of time constraints, I haven't implemented everything I wanted to. Espec
 - restoring broken connections
 - docker files
 - compress time option to use in e2e tests
+- css in different form
